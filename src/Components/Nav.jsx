@@ -18,25 +18,50 @@ const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
         }
       }, []);
     return (
-        <nav className="Nav">
-            <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
-                <label htmlFor="search">Search Posts</label>
-                <input
-                    id="search"
+<nav class="navbar navbar-expand-lg bg-body-tertiary mb-5">
+  <div class="container-fluid">
+    <Link class="navbar-brand" to="/">Simple Blog</Link>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <Link class="nav-link active" aria-current="page" to="/">Home</Link>
+        </li>
+        <li class="nav-item">
+          <Link class="nav-link" to="post">New Post</Link>
+        </li>
+        <li class="nav-item">
+          <Link class="nav-link" to="about">About</Link>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Welcome, {name}
+          </a>
+          <ul class="dropdown-menu">
+            <li><Link class="dropdown-item" onClick={logout}>Logout</Link></li>
+          </ul>
+        </li>
+
+
+      </ul>
+      <form class="d-flex" role="search" onSubmit={(e) => e.preventDefault()}>
+        <input class="form-control me-2" id="search"
                     type="text"
                     placeholder="Search Posts"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-            </form>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="post">Post</Link></li>
-                <li><Link to="about">About</Link></li>
-                <li><Link onClick={logout}>Logout</Link></li>
-                <li>Welcome Back, {name}</li>
-            </ul>
-        </nav>
+                    onChange={(e) => setSearch(e.target.value)}/>
+                    
+      </form>
+      
+    </div>
+  </div>
+</nav>
+
+
+
+
     )
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -35,64 +35,46 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleRegister}>
-      <div className="bg-danger form-group text-center">
-        {error && <p className="error">{error}</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="username"
-            className="form-control"
-            id="username"
-            placeholder="Enter username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>        
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
-          </small>
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword2">Confirm Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword2"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Register
-        </button>
-        
-      </form>
-    </div>
+
+<div class="container">
+<div class="card card-container">
+    <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+    <p id="profile-name" class="profile-name-card">  {error && <p className="error">{error}</p>}</p>
+    <form class="form-signin" onSubmit={handleRegister}>
+        <span id="reauth-email" class="reauth-email"></span>
+        <input type="text"
+      className="form-control"
+      id="username"
+      placeholder="Enter username"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)} required autofocus/>
+              <input type="email"
+      className="form-control"
+      id="exampleInputEmail1"
+      placeholder="Enter email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)} required/>
+        <input type="password"
+      className="form-control"
+      id="exampleInputPassword1"
+      placeholder="Password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)} required/>
+              <input type="password"
+      className="form-control"
+      id="exampleInputPassword2"
+      placeholder="Confirm Password"
+      value={confirmPassword}
+      onChange={(e) => setConfirmPassword(e.target.value)} required/>
+
+        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Register</button>
+        <p id="profile-name" class="profile-name-card">Already Having an Account? </p>
+        <Link to="/"><button className="btn btn-lg btn-primary btn-block btn-signup">Login</button></Link>
+
+    </form>
+
+</div>
+</div>
   );
 };
 

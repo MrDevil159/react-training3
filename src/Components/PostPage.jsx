@@ -21,38 +21,55 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
     const canEditDelete = post && (post.username === name);
     console.log(canEditDelete);
     return (
-        <main className="PostPage">
-            <article className="post">
-                {post &&
-                    <>
-                        <h2>{post.title}</h2>
-                        <p className="postDate">Posted by <u>{post.username}</u> at {post.datetime}</p>
-                        <p className="postBody">{post.body}</p>
 
-                        {canEditDelete && (
-              <>
-                <button onClick={() => handleDelete(post.id)}>
-                  Delete Post
-                </button>
-                <button onClick={() => handleEdit(post.id)}>Edit Post</button>
-              </>
-            )}
-                        <button onClick={() => navigate(-1)}>go back</button>
+<div class="container">
+  <div className="row">
+<div class="col-md-12">
+  <div className="panel panel-info">
 
-                        
-                    </>
-                }
-                {!post &&
-                    <>
-                        <h2>Post Not Found</h2>
-                        <p>Well, that's disappointing.</p>
-                        <p>
-                            <Link to='/'>Visit Our Homepage</Link>
-                        </p>
-                    </>
-                }
-            </article>
-        </main>
+{ post ? (
+<div className="panel-body">
+      <div className="single category">
+    <h1>{post.title}</h1>
+    <hr />
+    <p dangerouslySetInnerHTML={{ __html: post.body.replace(/\n/g, '<br>') }}></p>
+    <div>
+<span class="bytext">Posted {post.datetime}</span><br/>
+<span class="bytext">By - {post.username}</span>
+
+<div class="pull-right">
+{canEditDelete && (
+  <>
+  <button class="btn btn-primary" onClick={() => handleEdit(post.id)}>Edit</button>
+   <button class="ms-1 btn btn-danger" onClick={() => handleDelete(post.id)}>Delete</button> 
+   </>
+)}
+<button class="ms-1 btn btn-secondary" onClick={() => navigate(-1)}>Go Back</button></div>         
+     </div>
+    <hr/> 
+    </div>
+    </div>
+) : (
+
+  <div className="panel panel-info">
+    <div className="panel-body">
+      <div className="single category">
+        <h1 className='display-1'>Post Not Found</h1>
+        <p>Well, that's disappointing.</p>
+        <p>
+          <Link to="/">Visit Our Homepage</Link>
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
+    </div>
+    </div>
+</div>
+</div>
     )
 }
 

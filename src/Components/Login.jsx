@@ -38,38 +38,36 @@ const Login = ({ setIsLoggedIn, setError, error }) => {
 
   return (
     <>
-    
-      <form onSubmit={handleLogin}>
-        <div className="bg-danger form-group text-center">
-        {error && <p className="error">{error}</p>} {/* Render the error message */}
+  
+  <div class="container">
+        <div class="card card-container">
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card">  {error && <p className="error">{error}</p>}</p>
+            <form class="form-signin" onSubmit={handleLogin}>
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email"
+    className="form-control"
+    id="email"
+    placeholder="Enter email"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)} required autofocus/>
+                <input type="password"
+    className="form-control"
+    id="password"
+    placeholder="Password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)} required/>
+
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                <Link to="/Register"><button className="btn btn-lg btn-primary btn-block btn-signup">Signup</button></Link>
+
+            </form>
+
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary mt-1">
-          Submit
-        </button>
-        <Link to="/Register"><button className="btn btn-primary ms-2 mt-1">Signup</button></Link>
-      </form>
+    </div>
+
+
+
     </>
   );
 };
