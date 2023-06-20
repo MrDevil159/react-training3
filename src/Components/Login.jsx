@@ -28,7 +28,7 @@ const Login = ({ setIsLoggedIn, setError, error }) => {
       const obj = { _id:response.data._id, username: response.data.username, email: response.data.email };
       setIsLoggedIn(true);
       localStorage.setItem("token", JSON.stringify(obj));
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       console.error(error.response.data);
       setError("Invalid email or password"); // Set the error message

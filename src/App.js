@@ -165,7 +165,7 @@ function App() {
     <Routes>
     
       <Route
-        path="/"
+        path="/home"
         element={<Layout search={search} setSearch={setSearch} navigate={navigate} setIsLoggedIn={setIsLoggedIn} setError={setError} />}
       >
         <Route index element={<Home posts={searchResults} />} />
