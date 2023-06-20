@@ -46,7 +46,6 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
 )}
 <button class="ms-1 btn btn-secondary" onClick={() => navigate(-1)}>Go Back</button></div>         
      </div>
-    <hr/> 
     </div>
     </div>
 ) : (
@@ -65,7 +64,7 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
 )}
 
 
-
+<hr/> 
     </div>
     </div>
 </div>
