@@ -6,15 +6,9 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
-}
 
 body {
   min-height: 100vh;
-  font-family: 'Open Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   display: flex;
   background-color: #efefef;
 }
@@ -216,7 +210,9 @@ body {
   color: #fff;
   cursor: pointer;
 }
-
+h2 {
+  color: white;
+}
 .statusMsg {
   margin-top: 2rem;
 }

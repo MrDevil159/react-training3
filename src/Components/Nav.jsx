@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Nav = ({ search, setSearch }) => {
+const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
+    const logout = () => {
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
+        setError('Logged Out!')
+        navigate('/')
+        
+      };
+      const [name, setName] = useState("");
+      useEffect(() => {
+        const token = JSON.parse(localStorage.getItem('token'));
+        if (token && token._id && token.username) {
+          const username = token.username;
+          setName(username);
+        }
+      }, []);
     return (
         <nav className="Nav">
             <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
@@ -18,6 +33,9 @@ const Nav = ({ search, setSearch }) => {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="post">Post</Link></li>
                 <li><Link to="about">About</Link></li>
+                <li><Link to="about">About</Link></li>
+                <li><Link onClick={logout}>Logout</Link></li>
+                <li>Welcome Back, {name}</li>
             </ul>
         </nav>
     )

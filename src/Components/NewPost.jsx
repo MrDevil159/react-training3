@@ -1,8 +1,9 @@
 import React from 'react';
 
 const NewPost = ({
-    handleSubmit, postTitle, setPostTitle, postBody, setPostBody, editingPost
+    handleSubmit, postTitle, setPostTitle, postBody, setPostBody, editingPost, VerifyTokenUser
 }) => {
+    VerifyTokenUser();
     return (
         <main className="NewPost">
             <h2>New Post</h2>

@@ -1,27 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useParams, Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
-const PostPage = ({ posts, handleDelete, handleEdit }) => {
+const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
     const navigate = useNavigate();
 
     const { id } = useParams();
+    VerifyTokenUser();
     const post = posts.find(post => (post.id).toString() === id);
+    const [name, setName] = useState("");
+    useEffect(() => {
+      const token = JSON.parse(localStorage.getItem('token'));
+      if (token && token._id && token.username) {
+        const username = token.username;
+        setName(username);
+      }
+    }, []);
+
+    const canEditDelete = post && (post.username == name);
+    console.log(canEditDelete);
     return (
         <main className="PostPage">
             <article className="post">
                 {post &&
                     <>
                         <h2>{post.title}</h2>
-                        <p className="postDate">{post.datetime}</p>
+                        <p className="postDate">Posted by <u>{post.username}</u> at {post.datetime}</p>
                         <p className="postBody">{post.body}</p>
-                        <button onClick={() => handleDelete(post.id)}>
-                            Delete Post
-                        </button>
-                        <button onClick={() => handleEdit(post.id)}>
-                            Edit Post
-                        </button>
+
+                        {canEditDelete && (
+              <>
+                <button onClick={() => handleDelete(post.id)}>
+                  Delete Post
+                </button>
+                <button onClick={() => handleEdit(post.id)}>Edit Post</button>
+              </>
+            )}
                         <button onClick={() => navigate(-1)}>go back</button>
 
                         
