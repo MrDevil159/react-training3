@@ -18,7 +18,7 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
       }
     }, []);
 
-    const canEditDelete = post && (post.username == name);
+    const canEditDelete = post && (post.username === name);
     console.log(canEditDelete);
     return (
         <main className="PostPage">

@@ -29,7 +29,7 @@ function App() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/posts');
+        const response = await axios.get(`${process.env.REACT_APP_URL}/api/posts`);
         setPosts(response.data);
       } catch (error) {
         console.error(error);
@@ -64,7 +64,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${id}`);
+      await axios.delete(`${process.env.REACT_APP_URL}/api/posts/${id}`);
       const postsList = posts.filter((post) => post.id !== id);
       setPosts(postsList);
       navigate('/');
@@ -80,7 +80,7 @@ function App() {
     const username = token.username;
     const verifyToken = async () => {
       try {
-      const response = await axios.post('http://localhost:5000/api/verify-token', { _id: valID, username: username });
+      const response = await axios.post(`${process.env.REACT_APP_URL}/api/verify-token`, { _id: valID, username: username });
       console.log(response.data);
       
       } catch (error) {
@@ -110,7 +110,7 @@ function App() {
     
     if (editingPost) {
       try {
-        await axios.put(`http://localhost:5000/api/posts/${editingPost.id}`, {
+        await axios.put(`${process.env.REACT_APP_URL}/api/posts/${editingPost.id}`, {
           title: postTitle,
           body: postBody,
         });
@@ -140,7 +140,7 @@ function App() {
       const newPost = { id, title: postTitle, datetime, body: postBody, username: token.username };
       
       try {
-        await axios.post('http://localhost:5000/api/posts', newPost);
+        await axios.post(`${process.env.REACT_APP_URL}/api/posts`, newPost);
         setPosts([...posts, newPost]);
         setPostTitle('');
         setPostBody('');
