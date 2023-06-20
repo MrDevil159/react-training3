@@ -223,6 +223,9 @@ label small {
 #main {
   height: 50vh;
 }
+.fsdate {
+  font-size: 1.2rem;
+}
 .panel-info>.panel-heading {
   color: #3a87ad;
   background-color: #d9edf7;
