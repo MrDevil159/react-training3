@@ -7,7 +7,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <Routes>
+      <Routes basename="/react-training3">
         <Route path="/*" element={<App />}/>
       </Routes>
     </Router>
