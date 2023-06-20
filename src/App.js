@@ -155,15 +155,11 @@ function App() {
   if (!isLoggedIn) {
     return (
       <Routes>
-        <Route index path="/" element={<Login setIsLoggedIn={setIsLoggedIn} error={error} setError={setError}/>} />
+        <Route index path="*" element={<Login setIsLoggedIn={setIsLoggedIn} error={error} setError={setError}/>} />
         <Route path="/register" element={<Register />} error={error} setError={setError} />
       </Routes>
     );
   }
-
-
-
-
 
   return (
     <Routes>

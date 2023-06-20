@@ -33,7 +33,6 @@ const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="post">Post</Link></li>
                 <li><Link to="about">About</Link></li>
-                <li><Link to="about">About</Link></li>
                 <li><Link onClick={logout}>Logout</Link></li>
                 <li>Welcome Back, {name}</li>
             </ul>

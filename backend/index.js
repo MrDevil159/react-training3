@@ -9,7 +9,7 @@ const PORT = 5000;
 app.use(cors({
   origin: 'http://localhost:3000'
 }));
-mongoose.connect('mongodb://127.0.0.1:27017/Post', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://myAtlasDBUser:myatlas-001@myatlasclusteredu.p3jpgqa.mongodb.net/Post?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
   })
@@ -77,7 +77,7 @@ app.get('/api/posts', (req, res) => {
 app.get('/api/posts/:id', (req, res) => {
   const postId = req.params.id;
 
-  Post.findById(postId)
+  Post.findOne({ id: postId })
     .then((post) => {
       if (!post) {
         res.status(404).json({ error: 'Post not found' });
@@ -190,5 +190,5 @@ app.post('/api/verify-token', async (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
