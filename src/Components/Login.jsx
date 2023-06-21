@@ -26,7 +26,7 @@ const Login = ({ setIsLoggedIn, setError, error }) => {
       e.preventDefault();
       setUsername(response.data.username);
       const expirationDate = new Date();
-      expirationDate.setMinutes(expirationDate.getMinutes() + 1);
+      expirationDate.setMinutes(expirationDate.getMinutes() + 30);
 
       const obj = { _id:response.data._id, username: response.data.username, email: response.data.email, expiration: expirationDate.getTime() };
       setIsLoggedIn(true);
