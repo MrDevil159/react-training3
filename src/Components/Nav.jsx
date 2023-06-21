@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory  } from 'react-router-dom';
+import { Link, useLocation  } from 'react-router-dom';
 
 const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
     const logout = () => {
@@ -9,16 +9,12 @@ const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
         navigate('/')
         
       };
+      const location = useLocation();
       const [path, setPath] = useState(window.location.pathname);
       const [name, setName] = useState("");
       useEffect(() => {
-        const unlisten = history.listen((location) => {
-          setPath(location.pathname);
-        });
-        return () => {
-          unlisten();
-        };
-      }, [history]);
+        setPath(location.pathname);
+      }, [location]);
 
       useEffect(() => {
         const token = JSON.parse(localStorage.getItem('token'));
