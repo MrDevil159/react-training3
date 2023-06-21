@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory  } from 'react-router-dom';
 
 const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
     const logout = () => {
@@ -9,7 +9,17 @@ const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
         navigate('/')
         
       };
+      const [path, setPath] = useState(window.location.pathname);
       const [name, setName] = useState("");
+      useEffect(() => {
+        const unlisten = history.listen((location) => {
+          setPath(location.pathname);
+        });
+        return () => {
+          unlisten();
+        };
+      }, [history]);
+
       useEffect(() => {
         const token = JSON.parse(localStorage.getItem('token'));
         if (token && token._id && token.username) {
@@ -46,15 +56,23 @@ const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
 
 
       </ul>
-      <form class="d-flex" role="search" onSubmit={(e) => e.preventDefault()}>
-        <input class="form-control me-2" id="search"
-                    type="text"
-                    placeholder="Search Posts"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}/>
-                    
-      </form>
-      
+
+{path === '/' && (
+        <form
+          className="d-flex"
+          role="search"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <input
+            className="form-control me-2"
+            id="search"
+            type="text"
+            placeholder="Search Posts"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
+      )}
     </div>
   </div>
 </nav>
