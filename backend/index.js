@@ -7,9 +7,7 @@ const bcrypt = require('bcrypt');
 const app = express();
 const PORT = 5000; 
 
-app.use(cors({
-  origin: 'http://localhost:3000'
-}));
+app.use(cors());
 mongoose.connect('mongodb+srv://myAtlasDBUser:myatlas-001@myatlasclusteredu.p3jpgqa.mongodb.net/Post?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
@@ -64,53 +62,95 @@ app.post('/api/posts', async (req, res) => {
   }
 });
 
-app.get('/api/posts', (req, res) => {
-  Post.find({})
-    .then((posts) => {
-      res.json(posts);
-    })
-    .catch((error) => {
-      console.error('Error fetching posts:', error);
-      res.status(500).json({ error: 'An error occurred while fetching posts' });
-    });
+// app.get('/api/posts', (req, res) => {
+//   Post.find({})
+//     .then((posts) => {
+//       res.json(posts);
+//     })
+//     .catch((error) => {
+//       console.error('Error fetching posts:', error);
+//       res.status(500).json({ error: 'An error occurred while fetching posts' });
+//     });
+// });
+
+// app.get('/api/posts/:id', (req, res) => {
+//   const postId = req.params.id;
+
+//   Post.findOne({ id: postId })
+//     .then((post) => {
+//       if (!post) {
+//         res.status(404).json({ error: 'Post not found' });
+//       } else {
+//         res.json(post);
+//       }
+//     })
+//     .catch((error) => {
+//       console.error('Error fetching post:', error);
+//       res.status(500).json({ error: 'An error occurred while fetching the post' });
+//     });
+// });
+
+
+// app.put('/api/posts/:id', (req, res) => {
+//   const postId = req.params.id;
+//   const { title, body } = req.body;
+
+//   Post.updateOne({ id: postId }, { $set: { title, body } })
+//     .then((result) => {
+//       if (result.n === 0) {
+//         res.status(404).json({ error: 'Post not found' });
+//       } else {
+//         res.json({ message: 'Post updated successfully' });
+//       }
+//     })
+//     .catch((error) => {
+//       console.error('Error updating post:', error);
+//       res.status(500).json({ error: 'An error occurred while updating the post' });
+//     });
+// });
+
+app.get('/api/posts', async (req, res) => {
+  try {
+    const posts = await Post.find({});
+    res.json(posts);
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    res.status(500).json({ error: 'An error occurred while fetching posts' });
+  }
 });
 
-app.get('/api/posts/:id', (req, res) => {
+app.get('/api/posts/:id', async (req, res) => {
   const postId = req.params.id;
 
-  Post.findOne({ id: postId })
-    .then((post) => {
-      if (!post) {
-        res.status(404).json({ error: 'Post not found' });
-      } else {
-        res.json(post);
-      }
-    })
-    .catch((error) => {
-      console.error('Error fetching post:', error);
-      res.status(500).json({ error: 'An error occurred while fetching the post' });
-    });
+  try {
+    const post = await Post.findOne({ id: postId });
+    if (!post) {
+      res.status(404).json({ error: 'Post not found' });
+    } else {
+      res.json(post);
+    }
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    res.status(500).json({ error: 'An error occurred while fetching the post' });
+  }
 });
 
-
-app.put('/api/posts/:id', (req, res) => {
+app.put('/api/posts/:id', async (req, res) => {
   const postId = req.params.id;
   const { title, body } = req.body;
 
-  Post.updateOne({ id: postId }, { $set: { title, body } })
-    .then((result) => {
-      if (result.n === 0) {
-        res.status(404).json({ error: 'Post not found' });
-      } else {
-        res.json({ message: 'Post updated successfully' });
-      }
-    })
-    .catch((error) => {
-      console.error('Error updating post:', error);
-      res.status(500).json({ error: 'An error occurred while updating the post' });
-    });
+  try {
+    const result = await Post.updateOne({ id: postId }, { $set: { title, body } });
+    if (result.n === 0) {
+      res.status(404).json({ error: 'Post not found' });
+    } else {
+      res.json({ message: 'Post updated successfully' });
+    }
+  } catch (error) {
+    console.error('Error updating post:', error);
+    res.status(500).json({ error: 'An error occurred while updating the post' });
+  }
 });
-
 
 
 app.delete('/api/posts/:id', async (req, res) => {
@@ -129,45 +169,6 @@ app.delete('/api/posts/:id', async (req, res) => {
   }
 });
 
-
-
-// app.post('/api/login', async (req, res) => {
-//   const { email, password } = req.body;
-
-//   try {
-//     // Find the user in the database
-//     const user = await User.findOne({ email, password });
-
-//     if (!user) {
-//       return res.status(401).json({ error: 'Invalid email or password' });
-//     }
-//     console.log(user);
-//     // Successful login
-//     return res.status(200).json(user);
-//   } catch (error) {
-//     console.error('Error finding user:', error);
-//     return res.status(500).json({ error: 'Failed to find user' });
-//   }
-// });
-
-// app.post('/api/register', async (req, res) => {
-//   const { username, email, password } = req.body;
-
-//   try {
-//     const existingUser = await User.findOne({ email });
-//     if (existingUser) {
-//       return res.status(400).json({ error: 'Email already taken' });
-//     }
-
-//     const newUser = new User({ username, email, password });
-//     await newUser.save();
-
-//     return res.status(200).json({ message: 'Registration successful' });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ error: 'Server error' });
-//   }
-// });
 
 //Required for Encryption
 const saltRounds = 10;
