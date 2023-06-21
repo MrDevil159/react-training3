@@ -37,14 +37,14 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
 <span class="bytext">Posted {post.datetime}</span><br/>
 <span class="bytext">By - {post.username}</span>
 
-<div class="pull-right">
+<div class="pull-right pb-2">
 {canEditDelete && (
   <>
-  <button class="btn btn-primary" onClick={() => handleEdit(post.id)}>Edit</button>
-   <button class="ms-1 btn btn-danger" onClick={() => handleDelete(post.id)}>Delete</button> 
+  <button class="btn btn-primary btn-sm" onClick={() => handleEdit(post.id)}>Edit</button>
+   <button class="ms-1 btn btn-danger btn-sm" onClick={() => handleDelete(post.id)}>Delete</button> 
    </>
 )}
-<button class="ms-1 btn btn-secondary" onClick={() => navigate(-1)}>Go Back</button></div>         
+<button class="ms-1 btn btn-secondary btn-sm" onClick={() => navigate(-1)}>Go Back</button></div>         
      </div>
     </div>
     </div>
