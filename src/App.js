@@ -86,6 +86,7 @@ function App() {
       } catch (error) {
         console.error(error);
         setIsLoggedIn(false);
+        localStorage.removeItem('token');
         setError('Modification in Key Detected!');
         navigate('/');
       }
