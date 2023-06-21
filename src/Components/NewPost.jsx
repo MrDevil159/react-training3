@@ -13,7 +13,7 @@ const NewPost = ({
 	    <div class="col-md-12 col-md-offset-2">
 	        <div className='panel panel-info'>
                 <div className="panel-heading">
-                    <h4 className='ms-2 p-2'>Create post</h4>
+                    <h4 className='ms-2 p-2'>{editingPost ? 'Edit Post' : 'Create Post'}</h4>
                 </div>
                 <div className="panel-body">
                 <form className='p-3' onSubmit={handleSubmit}>
