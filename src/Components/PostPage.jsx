@@ -30,13 +30,12 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
 { post ? (
 <div className="panel-body">
       <div className="single category">
-    <h1>{post.title}</h1>
+    <h1>{post.title}</h1><br/>
+    <span class="bytext">{post.datetime}</span>
     <hr />
     <p dangerouslySetInnerHTML={{ __html: post.body.replace(/\n/g, '<br>') }}></p>
     <div>
-<span class="bytext">Posted {post.datetime}</span><br/>
 <span class="bytext">By - {post.username}</span>
-<br/>
 <div class="pull-right pb-2">
 {canEditDelete && (
   <>
