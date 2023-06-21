@@ -30,13 +30,13 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
 { post ? (
 <div className="panel-body">
       <div className="single category">
-    <h1>{post.title}</h1><br/>
+    <h1>{post.title}</h1>
     <span class="bytext">{post.datetime}</span>
     <hr />
     <p dangerouslySetInnerHTML={{ __html: post.body.replace(/\n/g, '<br>') }}></p>
     <div>
 <span class="bytext">By - {post.username}</span>
-<div class="pull-right pb-2">
+<div class="pull-right">
 {canEditDelete && (
   <>
   <button class="btn btn-primary btn-sm" onClick={() => handleEdit(post.id)}>Edit</button>
