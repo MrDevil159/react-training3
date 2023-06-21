@@ -92,26 +92,6 @@ function App() {
     }
     verifyToken();
   };
-//Checking Expiration
-const location = useLocation();
-const [path, setPath] = useState(window.location.pathname);
-const [name, setName] = useState("");
-useEffect(() => {
-  setPath(location.pathname);
-  checkExpiration();
-}, [location]);
-
-const checkExpiration = () => {
-  const token = JSON.parse(localStorage.getItem('token'));
-  if (token && Date.now() < token.expiration) {
-    setIsLoggedIn(true);
-    VerifyTokenUser();
-  }
-  else {
-    setIsLoggedIn(false);
-    localStorage.removeItem('token');
-  }
-}
  
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));

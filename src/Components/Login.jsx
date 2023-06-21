@@ -8,7 +8,6 @@ const Login = ({ setIsLoggedIn, setError, error }) => {
   const [password, setPassword] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (location.state && location.state.msg) {
       setError(location.state.msg); 
@@ -25,10 +24,8 @@ const Login = ({ setIsLoggedIn, setError, error }) => {
       console.log(response.data);
       e.preventDefault();
       setUsername(response.data.username);
-      const expirationDate = new Date();
-      expirationDate.setMinutes(expirationDate.getMinutes() + 30);
 
-      const obj = { _id:response.data._id, username: response.data.username, email: response.data.email, expiration: expirationDate.getTime() };
+      const obj = { _id:response.data._id, username: response.data.username, email: response.data.email };
       setIsLoggedIn(true);
       localStorage.setItem("token", JSON.stringify(obj));
       navigate("/");
