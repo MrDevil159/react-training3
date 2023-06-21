@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const PORT = 5000; 
@@ -130,18 +131,59 @@ app.delete('/api/posts/:id', async (req, res) => {
 
 
 
+// app.post('/api/login', async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     // Find the user in the database
+//     const user = await User.findOne({ email, password });
+
+//     if (!user) {
+//       return res.status(401).json({ error: 'Invalid email or password' });
+//     }
+//     console.log(user);
+//     // Successful login
+//     return res.status(200).json(user);
+//   } catch (error) {
+//     console.error('Error finding user:', error);
+//     return res.status(500).json({ error: 'Failed to find user' });
+//   }
+// });
+
+// app.post('/api/register', async (req, res) => {
+//   const { username, email, password } = req.body;
+
+//   try {
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.status(400).json({ error: 'Email already taken' });
+//     }
+
+//     const newUser = new User({ username, email, password });
+//     await newUser.save();
+
+//     return res.status(200).json({ message: 'Registration successful' });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ error: 'Server error' });
+//   }
+// });
+
+//Required for Encryption
+const saltRounds = 10;
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Find the user in the database
-    const user = await User.findOne({ email, password });
-
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
     console.log(user);
-    // Successful login
     return res.status(200).json(user);
   } catch (error) {
     console.error('Error finding user:', error);
@@ -151,22 +193,21 @@ app.post('/api/login', async (req, res) => {
 
 app.post('/api/register', async (req, res) => {
   const { username, email, password } = req.body;
-
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'Email already taken' });
     }
-
-    const newUser = new User({ username, email, password });
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
-
     return res.status(200).json({ message: 'Registration successful' });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 
 app.post('/api/verify-token', async (req, res) => {
