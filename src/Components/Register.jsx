@@ -36,12 +36,12 @@ const Register = () => {
 
   return (
 
-<div class="container">
-<div class="card card-container">
-    <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-    <p id="profile-name" class="profile-name-card">  {error && <p className="error">{error}</p>}</p>
-    <form class="form-signin" onSubmit={handleRegister}>
-        <span id="reauth-email" class="reauth-email"></span>
+<div className="container">
+<div className="card card-container">
+    <img id="profile-img" className="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+    <p id="profile-name" className="profile-name-card">  {error && <p className="error">{error}</p>}</p>
+    <form className="form-signin" onSubmit={handleRegister}>
+        <span id="reauth-email" className="reauth-email"></span>
         <input type="text"
       className="form-control"
       id="username"
@@ -67,8 +67,8 @@ const Register = () => {
       value={confirmPassword}
       onChange={(e) => setConfirmPassword(e.target.value)} required/>
 
-        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Register</button>
-        <p id="profile-name" class="profile-name-card">Already Having an Account? </p>
+        <button className="btn btn-lg btn-primary btn-block btn-signin" type="submit">Register</button>
+        <p id="profile-name" className="profile-name-card">Already Having an Account? </p>
         <Link to="/"><button className="btn btn-lg btn-primary btn-block btn-signup">Login</button></Link>
 
     </form>

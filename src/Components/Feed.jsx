@@ -4,9 +4,9 @@ import Post from './Post';
 const Feed = ({ posts }) => {
     return (
         <>
-        <div class="panel-body">
-                            <div class="single category">
-                            <ul class="list-unstyled">
+        <div className="panel-body">
+                            <div className="single category">
+                            <ul className="list-unstyled">
 
             {posts.map(post => (
                 <Post key={post.id} post={post} />

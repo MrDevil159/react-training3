@@ -22,28 +22,28 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
     console.log(canEditDelete);
     return (
 
-<div class="container">
+<div className="container">
   <div className="row">
-<div class="col-md-12">
+<div className="col-md-12">
   <div className="panel panel-info">
 
 { post ? (
 <div className="panel-body">
       <div className="single category">
     <h1>{post.title}</h1>
-    <span class="bytext">{post.datetime}</span>
+    <span className="bytext">{post.datetime}</span>
     <hr />
     <p dangerouslySetInnerHTML={{ __html: post.body.replace(/\n/g, '<br>') }}></p>
     <div>
-<span class="bytext">By - {post.username}</span>
-<div class="pull-right">
+<span className="bytext">By - {post.username}</span>
+<div className="pull-right">
 {canEditDelete && (
   <>
-  <button class="btn btn-primary btn-sm" onClick={() => handleEdit(post.id)}>Edit</button>
-   <button class="ms-1 btn btn-danger btn-sm" onClick={() => handleDelete(post.id)}>Delete</button> 
+  <button className="btn btn-primary btn-sm" onClick={() => handleEdit(post.id)}>Edit</button>
+   <button className="ms-1 btn btn-danger btn-sm" onClick={() => handleDelete(post.id)}>Delete</button> 
    </>
 )}
-<button class="ms-1 btn btn-secondary btn-sm" onClick={() => navigate(-1)}>Go Back</button></div>         
+<button className="ms-1 btn btn-secondary btn-sm" onClick={() => navigate(-1)}>Go Back</button></div>         
      </div>
     </div>
     </div>

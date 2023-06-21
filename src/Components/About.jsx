@@ -6,15 +6,15 @@ const About = () => {
             <div className="row">
 
 
-            <div class="col-md-12">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="ms-2 p-2">
+            <div className="col-md-12">
+                <div className="panel panel-info">
+                    <div className="panel-heading">
+                        <h4 className="ms-2 p-2">
                             About Simple Blog
                             </h4>
                             </div>
-                            <div class="panel-body">
-                                <div class="single category">
+                            <div className="panel-body">
+                                <div className="single category">
                                     <pre className='formatted-text'>
                                 The MERN (MongoDB, Express, React, Node.js) stack is a powerful combination for developing full-stack web applications. This blog application built with MERN incorporates login and register functionality along with CRUD (Create, Read, Update, Delete) operations.
                                 Users can register an account and securely log in to the application. The authentication process ensures that only authorized users can access the protected routes. Once logged in, users can create new blog posts, read existing posts, update their own posts, and delete posts if necessary.

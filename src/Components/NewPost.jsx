@@ -7,10 +7,10 @@ const NewPost = ({
     return (
 
 
-        <div class="container">
-	<div class="row">
+        <div className="container">
+	<div className="row">
 	    
-	    <div class="col-md-12 col-md-offset-2">
+	    <div className="col-md-12 col-md-offset-2">
 	        <div className='panel panel-info'>
                 <div className="panel-heading">
                     <h4 className='ms-2 p-2'>{editingPost ? 'Edit Post' : 'Create Post'}</h4>
@@ -18,31 +18,31 @@ const NewPost = ({
                 <div className="panel-body">
                 <form className='p-3' onSubmit={handleSubmit}>
     		    
-    		    <div class="form-group">
-    		        <label for="title">Title <span class="require">*</span></label>
+    		    <div className="form-group">
+    		        <label for="title">Title <span className="require">*</span></label>
     		        <input id="postTitle"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     required
                     value={postTitle}
                     onChange={(e) => setPostTitle(e.target.value)} />
     		    </div>
     		    
-    		    <div class="form-group">
-    		        <label for="description">Description <span class="require">*</span></label>
+    		    <div className="form-group">
+    		        <label for="description">Description <span className="require">*</span></label>
     		        <textarea rows="5" id="postBody"
-                    class="form-control"
+                    className="form-control"
                     required
                     value={postBody}
                     onChange={(e) => setPostBody(e.target.value)} />
     		    </div>
     		    
-    		    <div class="form-group">
-    		        <p><span class="require">*</span> - required fields</p>
+    		    <div className="form-group">
+    		        <p><span className="require">*</span> - required fields</p>
     		    </div>
     		    
-    		    <div class="form-group">
-    		        <button type="submit" class="btn btn-primary">
+    		    <div className="form-group">
+    		        <button type="submit" className="btn btn-primary">
                     {editingPost ? 'Save Changes' : 'Create Post'}
     		        </button>
 

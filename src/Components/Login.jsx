@@ -42,12 +42,12 @@ const Login = ({ setIsLoggedIn, setError, error }) => {
   return (
     <>
   
-  <div class="container">
-        <div class="card card-container">
-            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-            <p id="profile-name" class="profile-name-card">  {error && <p className="error">{error}</p>}</p>
-            <form class="form-signin" onSubmit={handleLogin}>
-                <span id="reauth-email" class="reauth-email"></span>
+  <div className="container">
+        <div className="card card-container">
+            <img id="profile-img" className="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" className="profile-name-card">  {error && <p className="error">{error}</p>}</p>
+            <form className="form-signin" onSubmit={handleLogin}>
+                <span id="reauth-email" className="reauth-email"></span>
                 <input type="email"
     className="form-control"
     id="email"
@@ -61,7 +61,7 @@ const Login = ({ setIsLoggedIn, setError, error }) => {
     value={password}
     onChange={(e) => setPassword(e.target.value)} required/>
 
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                <button className="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
                 <Link to="/Register"><button className="btn btn-lg btn-primary btn-block btn-signup">Signup</button></Link>
 
             </form>

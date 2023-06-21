@@ -7,8 +7,8 @@ const Home = ({ posts }) => {
         <main className="container body-content">
             <div className='row'>
                 <div className='col-md-12'>
-                    <div class="panel panel-info">
-                    <div class="panel-heading">
+                    <div className="panel panel-info">
+                    <div className="panel-heading">
 							<h4 className='ms-2 p-2'>Blog Posts</h4>
 					</div>
                 {posts.length ? (
