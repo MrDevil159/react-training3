@@ -110,18 +110,14 @@ const checkExpiration = () => {
   else {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
-    setError('Please Login to Proceed');
-    navigate('/');
   }
 }
  
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
     if (token && token._id && token.username) {
-
       setIsLoggedIn(true);
       VerifyTokenUser();
-      
     }
   }, []);
   
