@@ -3,7 +3,7 @@ import { Link, useLocation  } from 'react-router-dom';
 
 const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
     const logout = () => {
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         setIsLoggedIn(false);
         setError('Logged Out!')
         navigate('/')
@@ -17,7 +17,7 @@ const Nav = ({ search, setSearch, navigate, setIsLoggedIn, setError }) => {
       }, [location]);
 
       useEffect(() => {
-        const token = JSON.parse(sessionStorage.getItem('token'));
+        const token = JSON.parse(localStorage.getItem('token'));
         if (token && token._id && token.username) {
           const username = token.username;
           setName(username);

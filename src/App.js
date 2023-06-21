@@ -5,7 +5,7 @@ import PostPage from './Components/PostPage';
 import About from './Components/About';
 import Missing from './Components/Missing';
 import Login from './Components/Login';
-import { Route, Routes, useNavigate  } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation  } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import axios from 'axios';
@@ -74,7 +74,7 @@ function App() {
   };
 
   const VerifyTokenUser = () => {
-    token = JSON.parse(sessionStorage.getItem('token'));
+    token = JSON.parse(localStorage.getItem('token'));
     console.log("Validating ID with Username");
     const valID = token._id;
     const username = token.username;
@@ -92,15 +92,36 @@ function App() {
     }
     verifyToken();
   };
+//Checking Expiration
+const location = useLocation();
+const [path, setPath] = useState(window.location.pathname);
+const [name, setName] = useState("");
+useEffect(() => {
+  setPath(location.pathname);
+  checkExpiration();
+}, [location]);
 
-
+const checkExpiration = () => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  if (token && Date.now() < token.expiration) {
+    setIsLoggedIn(true);
+    VerifyTokenUser();
+  }
+  else {
+    setIsLoggedIn(false);
+    localStorage.removeItem('token');
+    setError('Token Expired!, Please re-login');
+    navigate('/');
+  }
+}
  
   useEffect(() => {
-    const token = JSON.parse(sessionStorage.getItem('token'));
+    const token = JSON.parse(localStorage.getItem('token'));
     if (token && token._id && token.username) {
 
       setIsLoggedIn(true);
       VerifyTokenUser();
+      
     }
   }, []);
   

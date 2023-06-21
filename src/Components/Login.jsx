@@ -25,9 +25,12 @@ const Login = ({ setIsLoggedIn, setError, error }) => {
       console.log(response.data);
       e.preventDefault();
       setUsername(response.data.username);
-      const obj = { _id:response.data._id, username: response.data.username, email: response.data.email };
+      const expirationDate = new Date();
+      expirationDate.setMinutes(expirationDate.getMinutes() + 30);
+
+      const obj = { _id:response.data._id, username: response.data.username, email: response.data.email, expiration: expirationDate.getTime() };
       setIsLoggedIn(true);
-      sessionStorage.setItem("token", JSON.stringify(obj));
+      localStorage.setItem("token", JSON.stringify(obj));
       navigate("/");
     } catch (error) {
       console.error(error.response.data);
