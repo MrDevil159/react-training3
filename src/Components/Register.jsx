@@ -20,7 +20,7 @@ const Register = () => {
     email,
     password);
     try {
-      const response = await axios.post(`${process.env.REACT_APP_URL}/api/register`, {
+      const response = await axios.post(`${process.env.REACT_APP_URL}/api/auth/register`, {
         username,
         email,
         password,
@@ -38,8 +38,8 @@ const Register = () => {
 
 <div className="container">
 <div className="card card-container">
-    <img id="profile-img" className="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-    <p id="profile-name" className="profile-name-card">  {error && <p className="error">{error}</p>}</p>
+    <img id="profile-img" className="profile-img-card" alt="dummy pic" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+    <p id="profile-name" className="profile-name-card">  {error && <span>{error}</span>}</p>
     <form className="form-signin" onSubmit={handleRegister}>
         <span id="reauth-email" className="reauth-email"></span>
         <input type="text"
@@ -47,7 +47,7 @@ const Register = () => {
       id="username"
       placeholder="Enter username"
       value={username}
-      onChange={(e) => setUsername(e.target.value)} required autofocus/>
+      onChange={(e) => setUsername(e.target.value)} required/>
               <input type="email"
       className="form-control"
       id="exampleInputEmail1"

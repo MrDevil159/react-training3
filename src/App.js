@@ -5,7 +5,7 @@ import PostPage from './Components/PostPage';
 import About from './Components/About';
 import Missing from './Components/Missing';
 import Login from './Components/Login';
-import { Route, Routes, useNavigate, useLocation  } from 'react-router-dom';
+import { Route, Routes, useNavigate  } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import axios from 'axios';
@@ -29,15 +29,18 @@ function App() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        const token = JSON.parse(localStorage.getItem('token'));
+        const tokenlarge = token['token'];
+        // Set the token as the Authorization header
+        axios.defaults.headers.common['Authorization'] = `Bearer ${tokenlarge}`;
         const response = await axios.get(`${process.env.REACT_APP_URL}/api/posts`);
         setPosts(response.data);
       } catch (error) {
         console.error(error);
       }
     };
-
     fetchPosts();
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const filteredResults = posts.filter(
@@ -60,10 +63,14 @@ function App() {
     navigate(`/post`);
   };
   
-
-
   const handleDelete = async (id) => {
     try {
+      const token = JSON.parse(localStorage.getItem('token'));
+      const tokenlarge = token['token'];
+       
+      // Set the token as the Authorization header
+      axios.defaults.headers.common['Authorization'] = `Bearer ${tokenlarge}`;
+
       await axios.delete(`${process.env.REACT_APP_URL}/api/posts/${id}`);
       const postsList = posts.filter((post) => post.id !== id);
       setPosts(postsList);
@@ -74,13 +81,19 @@ function App() {
   };
 
   const VerifyTokenUser = () => {
-    token = JSON.parse(localStorage.getItem('token'));
+    const token = JSON.parse(localStorage.getItem('token'));
+    const tokenlarge = token['token'];
+     
+    // Set the token as the Authorization header
+    axios.defaults.headers.common['Authorization'] = `Bearer ${tokenlarge}`;
     console.log("Validating ID with Username");
     const valID = token._id;
     const username = token.username;
     const verifyToken = async () => {
       try {
-      const response = await axios.post(`${process.env.REACT_APP_URL}/api/verify-token`, { _id: valID, username: username });
+        // Set the token as the Authorization header
+        axios.defaults.headers.common['Authorization'] = `Bearer ${tokenlarge}`;
+      const response = await axios.post(`${process.env.REACT_APP_URL}/api/auth/verify`, { _id: valID, username: username });
       console.log(response.data);
       
       } catch (error) {
@@ -93,37 +106,92 @@ function App() {
     }
     verifyToken();
   };
- 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
     if (token && token._id && token.username) {
       setIsLoggedIn(true);
       VerifyTokenUser();
     }
+    // eslint-disable-next-line
   }, []);
   
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+    
+  //   if (editingPost) {
+  //     try {
+  //       await axios.put(`${process.env.REACT_APP_URL}/api/posts/${editingPost.id}`, {
+  //         title: postTitle,
+  //         body: postBody,
+  //       });
+        
+  //       const updatedPosts = posts.map((post) => {
+  //         if (post.id === editingPost.id) {
+  //           return {
+  //             ...post,
+  //             title: postTitle,
+  //             body: postBody
+  //           };
+  //         }
+  //         return post;
+  //       });
+        
+  //       setPosts(updatedPosts);
+  //       setEditingPost(null);
+  //       setPostTitle('');
+  //       setPostBody('');
+  //       navigate('/');
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   } else {
+  //     const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
+  //     const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+  //     const newPost = { id, title: postTitle, datetime, body: postBody, username: token.username };
+      
+  //     try {
+  //       await axios.post(`${process.env.REACT_APP_URL}/api/posts`, newPost);
+  //       setPosts([...posts, newPost]);
+  //       setPostTitle('');
+  //       setPostBody('');
+  //       navigate('/');
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // };
+  
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
+    // Retrieve the token from local storage
+    const token = JSON.parse(localStorage.getItem('token'));
+    const tokenlarge = token['token'];
+     
+    // Set the token as the Authorization header
+    axios.defaults.headers.common['Authorization'] = `Bearer ${tokenlarge}`;
+  
     if (editingPost) {
       try {
         await axios.put(`${process.env.REACT_APP_URL}/api/posts/${editingPost.id}`, {
           title: postTitle,
           body: postBody,
         });
-        
+  
         const updatedPosts = posts.map((post) => {
           if (post.id === editingPost.id) {
             return {
               ...post,
               title: postTitle,
-              body: postBody
+              body: postBody,
             };
           }
           return post;
         });
-        
+  
         setPosts(updatedPosts);
         setEditingPost(null);
         setPostTitle('');
@@ -136,7 +204,7 @@ function App() {
       const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
       const datetime = format(new Date(), 'MMMM dd, yyyy pp');
       const newPost = { id, title: postTitle, datetime, body: postBody, username: token.username };
-      
+  
       try {
         await axios.post(`${process.env.REACT_APP_URL}/api/posts`, newPost);
         setPosts([...posts, newPost]);
@@ -148,6 +216,7 @@ function App() {
       }
     }
   };
+
   
 
   if (!isLoggedIn) {
