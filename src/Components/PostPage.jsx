@@ -11,7 +11,7 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
     const post = posts.find(post => (post.id).toString() === id);
     const [name, setName] = useState("");
     useEffect(() => {
-      const token = JSON.parse(localStorage.getItem('token'));
+      const token = JSON.parse(sessionStorage.getItem('token'));
       if (token && token._id && token.username) {
         const username = token.username;
         setName(username);

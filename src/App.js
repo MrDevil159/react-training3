@@ -74,7 +74,7 @@ function App() {
   };
 
   const VerifyTokenUser = () => {
-    token = JSON.parse(localStorage.getItem('token'));
+    token = JSON.parse(sessionStorage.getItem('token'));
     console.log("Validating ID with Username");
     const valID = token._id;
     const username = token.username;
@@ -96,7 +96,7 @@ function App() {
 
  
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = JSON.parse(sessionStorage.getItem('token'));
     if (token && token._id && token.username) {
 
       setIsLoggedIn(true);

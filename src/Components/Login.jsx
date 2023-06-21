@@ -27,7 +27,7 @@ const Login = ({ setIsLoggedIn, setError, error }) => {
       setUsername(response.data.username);
       const obj = { _id:response.data._id, username: response.data.username, email: response.data.email };
       setIsLoggedIn(true);
-      localStorage.setItem("token", JSON.stringify(obj));
+      sessionStorage.setItem("token", JSON.stringify(obj));
       navigate("/");
     } catch (error) {
       console.error(error.response.data);
