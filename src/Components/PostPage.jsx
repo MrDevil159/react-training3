@@ -36,7 +36,7 @@ const PostPage = ({ posts, handleDelete, handleEdit, VerifyTokenUser }) => {
     <div>
 <span class="bytext">Posted {post.datetime}</span><br/>
 <span class="bytext">By - {post.username}</span>
-
+<br/>
 <div class="pull-right pb-2">
 {canEditDelete && (
   <>
