@@ -110,7 +110,7 @@ const checkExpiration = () => {
   else {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
-    setError('Token Expired!, Please re-login');
+    setError('Please Login to Proceed');
     navigate('/');
   }
 }
