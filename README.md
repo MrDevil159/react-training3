@@ -1,3 +1,89 @@
+# Simple Blog with CRUD Features
+
+This is a simple blog application with basic CRUD (Create, Read, Update, Delete) operations, implemented using Node.js and MongoDB. The application also includes user authentication and token-based security for login and registration.
+
+## Features
+
+- User authentication using tokens for login and registration
+- Create, Read, Update, and Delete blog posts
+- Continuous updates while learning new concepts
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- MongoDB
+- JSON Web Tokens (JWT)
+
+## Installation
+
+1. Clone the repository:
+
+```shell
+git clone <repository_url>
+```
+
+2. Navigate to the project directory:
+
+```shell
+cd simple-blog
+```
+
+3. Install the dependencies:
+
+```shell
+npm install
+```
+
+4. Set up the environment variables:
+
+- Create a `.env` file in the root of the project.
+- Add the following variables to the `.env` file:
+
+  ```
+  PORT=3000
+  MONGODB_URI=<your_mongodb_uri>
+  SECRET_KEY=<your_secret_key>
+  ```
+
+  Replace `<your_mongodb_uri>` with the connection string for your MongoDB database, and `<your_secret_key>` with a secret key used for JWT token generation.
+
+5. Start the application:
+
+```shell
+npm start
+```
+
+The application will start running on `http://localhost:3000`.
+
+## API Endpoints
+
+The following API endpoints are available:
+
+- **POST /api/auth/register** - Register a new user
+- **POST /api/auth/login** - Login and generate a token
+- **GET /api/posts** - Retrieve all blog posts
+- **GET /api/posts/:id** - Retrieve a specific blog post
+- **POST /api/posts** - Create a new blog post
+- **PUT /api/posts/:id** - Update an existing blog post
+- **DELETE /api/posts/:id** - Delete a blog post
+
+## Future Updates
+
+This simple blog application will be continuously updated to incorporate new features and concepts as part of the learning process. The updates may include:
+
+- Improved user interface
+- Commenting system
+- Categories or tags for blog posts
+- Search functionality
+- Pagination for blog posts
+
+## Contributing
+
+Contributions to the project are welcome. If you have any ideas, suggestions, please open an issue or submit a pull request.
+Note that I started learning React at 18/06/2023 and is still under the process while building this simple Blog
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
