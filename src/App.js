@@ -5,11 +5,12 @@ import PostPage from './Components/PostPage';
 import About from './Components/About';
 import Missing from './Components/Missing';
 import Login from './Components/Login';
-import { Route, Routes, useNavigate  } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation  } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import axios from 'axios';
 import Register from './Components/Register';
+import jwt_decode from 'jwt-decode';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -20,11 +21,37 @@ function App() {
   const [editingPost, setEditingPost] = useState(null);
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
 
   let token={};
 
   
   const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const tokenlarge = token['token'];
+    const decodedToken = jwt_decode(tokenlarge);
+    const tokenExpirationTime = decodedToken.exp * 1000;
+    const checkTokenExpiration = () => {
+      const currentTime = Date.now();
+      if (tokenExpirationTime < currentTime) {
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
+        setError('Token Expired, Logged Out!')
+        navigate('/')
+      }
+    };
+    checkTokenExpiration();
+  } catch {
+    console.log("Token not detected to Verify!");
+  }
+    console.log('Location changed:', location.pathname);
+    // eslint-disable-next-line
+  },[location.pathname]);
+
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -36,7 +63,7 @@ function App() {
         const response = await axios.get(`${process.env.REACT_APP_URL}/api/posts`);
         setPosts(response.data);
       } catch (error) {
-        console.error(error);
+        console.log("Token not detected to load Posts, Do Login");
       }
     };
     fetchPosts();
@@ -114,53 +141,6 @@ function App() {
     }
     // eslint-disable-next-line
   }, []);
-  
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-    
-  //   if (editingPost) {
-  //     try {
-  //       await axios.put(`${process.env.REACT_APP_URL}/api/posts/${editingPost.id}`, {
-  //         title: postTitle,
-  //         body: postBody,
-  //       });
-        
-  //       const updatedPosts = posts.map((post) => {
-  //         if (post.id === editingPost.id) {
-  //           return {
-  //             ...post,
-  //             title: postTitle,
-  //             body: postBody
-  //           };
-  //         }
-  //         return post;
-  //       });
-        
-  //       setPosts(updatedPosts);
-  //       setEditingPost(null);
-  //       setPostTitle('');
-  //       setPostBody('');
-  //       navigate('/');
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   } else {
-  //     const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
-  //     const datetime = format(new Date(), 'MMMM dd, yyyy pp');
-  //     const newPost = { id, title: postTitle, datetime, body: postBody, username: token.username };
-      
-  //     try {
-  //       await axios.post(`${process.env.REACT_APP_URL}/api/posts`, newPost);
-  //       setPosts([...posts, newPost]);
-  //       setPostTitle('');
-  //       setPostBody('');
-  //       navigate('/');
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  // };
   
 
 
