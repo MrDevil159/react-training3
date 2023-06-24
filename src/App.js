@@ -1,4 +1,5 @@
 import Layout from './Layout';
+
 import Home from './Components/Home';
 import NewPost from './Components/NewPost';
 import PostPage from './Components/PostPage';
